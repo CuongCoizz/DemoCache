@@ -1,0 +1,485 @@
+﻿<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+@section Scripts
+    {
+    <script src="~/assets/echart-4.2.1/dist/echarts.js"></script>
+    <script type="text/javascript" asp-append-version="true">
+        $(function () {
+            loadData();
+            function loadData() {
+                $.ajax({
+                    method: 'GET',
+                    cache: false,
+                    url: '/RedisCache/GetDataWithRedisCache'
+                }).done(function (result) {
+                    if (result.success === true) {
+                        drawChart(result.data);
+                    }
+                    else {
+                        abp.notify.error(result.message);
+                    }
+                });
+            }
+
+            var drawChart = function (geoData) {
+                window.MapInstance = echarts.init(document.getElementById("VietNamMap"));
+
+                // window.MapInstance.showLoading();
+                // window.MapInstance.hideLoading();
+
+                var mergedData = [{
+                    name: 'An Giang',
+                    id: 54,
+                    infor: ""
+                }, {
+                    name: 'Bà Rịa Vũng Tàu',
+                    id: 49,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Bắc Giang',
+                    id: 14,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Bắc Kạn',
+                    id: 9,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Bạc Liêu',
+                    id: 61,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Bắc Ninh',
+                    id: 16,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Bến Tre',
+                    id: 55,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Bình Định',
+                    id: 35,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Bình Dương',
+                    id: 46,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Bình Phước',
+                    id: 45,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Bình Thuận',
+                    id: 39,
+                    value: 200,
+                    infor: '-Nhà máy thủy điện Đại Ninh <br/>'
+                        + 'Công suất thiết kế:320.000 MW <br/>' + '</br>'
+                        + '-Nhà máy thủy điện Hàm Thuận <br/>'
+                        + 'Công suất thiết kế:320.000 MW <br/>' + '</br>'
+                        + '-Nhà máy thủy điện Đa Mi <br/>'
+                        + 'Công suất thiết kế:320.000 MW <br/>' + '</br>'
+                }, {
+                    name: 'Cà Mau',
+                    id: 62,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Cần Thơ',
+                    id: 63,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Cao Bằng',
+                    id: 8,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Đà Nẵng',
+                    id: 32,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Đắk Lắk',
+                    id: 42,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Đắk Nông',
+                    id: 43,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Điện Biên',
+                    id: 3,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Đồng Nai',
+                    id: 47,
+                    value: 200,
+                    infor: '-Nhà máy thủy điện Đồng Nai 3 <br/>'
+                        + 'Công suất thiết kế:180.000 MW <br/>' + '</br>'
+                        + '-Nhà máy thủy điện Đồng Nai 4 <br/>'
+                        + 'Công suất thiết kế:340.000 MW <br/>' + '</br>'
+                }, {
+                    name: 'Đồng Tháp',
+                    id: 52,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Gia Lai',
+                    id: 41,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Hà Giang',
+                    id: 7,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Hà Nam',
+                    id: 17,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Hà Nội',
+                    id: 18,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Hà Tĩnh',
+                    id: 28,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Hải Dương',
+                    id: 19,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Hải Phòng',
+                    id: 21,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Hậu Giang',
+                    id: 59,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Hồ Chí Minh',
+                    id: 50,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Hòa Bình',
+                    id: 4,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Hưng Yên',
+                    id: 20,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Khánh Hòa',
+                    id: 37,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Kiên Giang',
+                    id: 59,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Kon Tum',
+                    id: 40,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Lai Châu',
+                    id: 5,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Lâm Đồng',
+                    id: 44,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Lạng Sơn',
+                    id: 10,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Lào Cai',
+                    id: 1,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Long An',
+                    id: 51,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Nam Định',
+                    id: 22,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Nghệ An',
+                    id: 27,
+                    value: 200,
+                    infor: '-Nhà máy thủy điện Bản Vẽ <br/>'
+                        + 'Công suất thiết kế:320.000 MW <br/>' + '</br>'
+                        + '-Nhà máy thủy điện Khe Bố <br/>'
+                        + 'Công suất thiết kế:320.000 MW <br/>' + '</br>'
+                }, {
+                    name: 'Ninh Bình',
+                    id: 23,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Ninh Thuận',
+                    id: 38,
+                    value: 200,
+                    infor: '-Nhà máy thủy điện Đa Nhim <br/>'
+                        + 'Công suất thiết kế:250.000 MW <br/>' + '</br>'
+                }, {
+                    name: 'Phú Thọ',
+                    id: 13,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Phú Yên',
+                    id: 36,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Quảng Bình',
+                    id: 29,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Quảng Nam',
+                    id: 33,
+                    value: 200,
+                    infor: '-Nhà máy thủy điện Sông tranh 2 <br/>'
+                        + 'Công suất thiết kế:190.000 MW <br/>' + '</br>'
+                }, {
+                    name: 'Quảng Ngãi',
+                    id: 34,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Quảng Ninh',
+                    id: 15,
+                    value: 1386,
+                    infor: '-Nhà máy nhiệt điện Uông Bí MR 1 <br/>'
+                        + 'Công suất thiết kế:300.000 MW <br/>' + '</br>'
+                        + '-Nhà máy nhiệt điện Uông Bí MR 2 <br/>'
+                        + 'Công suất thiết kế:330.000 MW <br/>' + '</br>'
+                }, {
+                    name: 'Quảng Trị',
+                    id: 30,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Sóc Trăng',
+                    id: 60,
+                    value: 0
+                }, {
+                    name: 'Sơn La',
+                    id: 6,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Tây Ninh',
+                    id: 48,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Thái Bình',
+                    id: 24,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Thái Nguyên',
+                    id: 12,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Thanh Hóa',
+                    id: 26,
+                    value: 1386,
+                    infor: '-Nhà máy nhiệt điện Nghi Sơn 1 <br/>'
+                        + 'Công suất thiết kế:600.000 MW <br/>' + '</br>'
+                }, {
+                    name: 'Thừa Thiên Huế',
+                    id: 31,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Tiền Giang',
+                    id: 53,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Trà Vinh',
+                    id: 57,
+                    value: 1386,
+                    infor: '-Nhà máy nhiệt điện Duyên Hải 1 <br/>'
+                        + 'Công suất thiết kế:1241.000 MW <br/>' + '</br>'
+                        + '-Nhà máy nhiệt điện Duyên Hải 3 <br/>'
+                        + 'Công suất thiết kế:1245.000 MW <br/>' + '</br>'
+                        + 'Nhà máy nhiệt điện Duyên Hải 3 MR<br/>'
+                        + 'Công suất thiết kế:688.000 MW <br/>' + '</br>'
+                }, {
+                    name: 'Tuyên Quang',
+                    id: 11,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Vĩnh Long',
+                    id: 56,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Vĩnh Phúc',
+                    id: 25,
+                    value: 0,
+                    infor: ""
+                }, {
+                    name: 'Yên Bái',
+                    id: 2,
+                    value: 0,
+                    infor: ""
+                }];
+
+                var maxNameplateCapacity = 1386;
+
+                echarts.registerMap('VN', geoData, {});
+                var centralPoint = [108.335255, 14.384673];
+
+                option = {
+                    tooltip: {
+                        trigger: 'item',
+                        showDelay: 0,
+                        transitionDuration: 0.2,
+                        formatter: function (params) {
+                            //var value = (params.value + '').split('.');
+                            //value = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,');
+                            return params.name + '<br/>'
+                                + params.data.infor
+                                ;
+
+                        }
+                    },
+                    visualMap: {
+                        show: false,
+                        left: 'right',
+                        min: 0,
+                        max: maxNameplateCapacity,
+                        color: ['orangered', 'yellow', 'lightskyblue'],
+                        text: ['Nhiệt điện', 'Thủy điện'],
+                        calculable: true
+                    },
+                    toolbox: {
+                        show: true,
+                        //orient : 'vertical',
+                        left: 'left',
+                        top: 'top',
+                        feature: {
+                            mark: {
+                                show: false
+                            },
+                            dataView: {
+                                show: false,
+                                readOnly: false
+                            },
+                            restore: {
+                                show: false
+                            },
+                            saveAsImage: {
+                                show: false
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'Phân bố nhà máy tổng công ty Genco 1',
+                        type: 'map',
+                        roam: 'move',
+                        map: 'VN',
+                        center: centralPoint,
+                        itemStyle: {
+                            emphasis: {
+                                label: {
+                                    show: true
+                                }
+                            }
+                        },
+                        data: mergedData
+                    }]
+                };
+
+                window.MapInstance.setOption(option);
+            };
+        });
+    </script>
+}
+
+<style>
+    #VietNamMap {
+        width: 100%;
+        min-height: 780px; /* 460 */
+    }
+</style>
+
+<div class="kt-content">
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__body">
+            <div class="kt-form">
+                <div class="row align-items-center mb-4">
+                    <h3 class="kt-portlet__head-title"> Bản đồ Việt Nam</h3>
+                </div>
+            </div>
+            <div class="row align-items-center">
+
+
+                <div class="tab-content align-items-center" style="width: 100% ; ">
+                    <div class="tab-pane active align-items-center" id="kt_tabs_1_1" role="tabpanel">
+
+                        <div class="kt-portlet__body">
+
+                            <div class="row align-items-center">
+
+                                <div class="col">
+                                    <div id="VietNamMap"></div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
