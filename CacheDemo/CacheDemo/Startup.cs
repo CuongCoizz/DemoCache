@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,16 +24,26 @@ namespace CacheDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            //Sử dụng Redis Cache
             services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = "127.0.0.1:6379";
+                options.Configuration = "192.168.68.204:6379";
             });
+            // Sql server Cache
+            //services.AddDistributedSqlServerCache(options =>
+            //{
+            //    options.ConnectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=DistCache;Integrated Security=True;User ID=sa;Password=sa123;";
+            //    options.SchemaName = "dbo";
+            //    options.TableName = "TestCache";
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //Sử dụng Response Cache
             app.UseResponseCaching();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

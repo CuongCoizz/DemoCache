@@ -10,11 +10,7 @@
                 $.ajax({
                     method: 'GET',
                     cache: false,
-                    url: '/InMemoryCache/GetDataWithInMemoryCache',
-                    start_time: new Date().getTime(),
-                    complete: function (data) {
-                        alert('This request took ' + (new Date().getTime() - this.start_time) + ' ms');
-                    }
+                    url: '/SqlServerCache/GetDataWithSqlServerCache'
                 }).done(function (result) {
                     if (result.success === true) {
                         drawChart(result.data);
