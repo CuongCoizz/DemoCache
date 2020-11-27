@@ -5,12 +5,17 @@
     <script src="~/assets/echart-4.2.1/dist/echarts.js"></script>
     <script type="text/javascript" asp-append-version="true">
         $(function () {
+            document.title = 'Respone Caching';
             loadData();
             function loadData() {
                 $.ajax({
                     method: 'GET',
                     cache: false,
-                    url: '/ResponeCaching/GetData'
+                    url: '/ResponeCaching/GetData',
+                    start_time: new Date().getTime(),
+                    complete: function (data) {
+                        $("#time").text('This request took: ' + (new Date().getTime() - this.start_time) + ' ms');
+                    }
                 }).done(function (result) {
                     if (result.success === true) {
                         drawChart(result.data);
@@ -439,7 +444,7 @@
 <style>
     #VietNamMap {
         width: 100%;
-        min-height: 780px; /* 460 */
+        min-height: 796px; /* 460 */
     }
 </style>
 
@@ -448,7 +453,7 @@
         <div class="kt-portlet__body">
             <div class="kt-form">
                 <div class="row align-items-center mb-4">
-                    <h3 class="kt-portlet__head-title"> Bản đồ Việt Nam</h3>
+                    <h3 class="kt-portlet__head-title" id="time"></h3>
                 </div>
             </div>
             <div class="row align-items-center">

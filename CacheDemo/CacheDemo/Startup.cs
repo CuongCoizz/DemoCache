@@ -27,12 +27,12 @@ namespace CacheDemo
             //Sử dụng Redis Cache
             services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = "192.168.68.204:6379";
+                options.Configuration = "127.0.0.1:6379";
             });
-            // Sql server Cache
+            //Sql server Cache
             //services.AddDistributedSqlServerCache(options =>
             //{
-            //    options.ConnectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=DistCache;Integrated Security=True;User ID=sa;Password=sa123;";
+            //    options.ConnectionString = @"Data Source=DESKTOP-L0RDFL3\SQLEXPRESS;Initial Catalog=DistCache;Integrated Security=True;";
             //    options.SchemaName = "dbo";
             //    options.TableName = "TestCache";
             //});
