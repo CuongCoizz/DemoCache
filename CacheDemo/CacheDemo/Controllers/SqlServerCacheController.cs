@@ -30,8 +30,9 @@ namespace CacheDemo.Controllers
             JObject geoData;
             string content;
 
-            var redisCacheVietNamMap = _distributedCache.Get(cacheKey);
-            if (redisCacheVietNamMap == null)
+            var sqlServerCacheVietNamMap = _distributedCache.Get(cacheKey);
+            
+            if (sqlServerCacheVietNamMap == null)
             {
                 ResponseModel response = VietNamMapCommon.LoadDataForVNMap(out geoData);
                 if (ResponseType.Success != response.Type)
@@ -44,7 +45,7 @@ namespace CacheDemo.Controllers
             }
             else
             {
-                geoData = JObject.Parse(Encoding.UTF8.GetString(redisCacheVietNamMap));
+                geoData = JObject.Parse(Encoding.UTF8.GetString(sqlServerCacheVietNamMap));
             }
 
             content = JsonConvert.SerializeObject(new { success = true, data = geoData });

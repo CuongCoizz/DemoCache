@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,7 +36,7 @@ namespace CacheDemo
             //{
             //    options.ConnectionString = @"Data Source=DESKTOP-L0RDFL3\SQLEXPRESS;Initial Catalog=DistCache;Integrated Security=True;";
             //    options.SchemaName = "dbo";
-            //    options.TableName = "TestCache";
+            //    options.TableName = "TestCache1";
             //});
         }
 
@@ -55,7 +57,15 @@ namespace CacheDemo
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    // Cache static files for 30 days
+                    ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=2592000");
+                    ctx.Context.Response.Headers.Append("Expires", DateTime.UtcNow.AddDays(30).ToString("R", CultureInfo.InvariantCulture));
+                }
+            });
 
             app.UseRouting();
 

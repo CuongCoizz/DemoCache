@@ -15,7 +15,7 @@ namespace CacheDemo.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 1000)]
+        [ResponseCache(Duration = 500,Location =ResponseCacheLocation.Client)]
         public IActionResult GetData()
         {
             _ = VietNamMapCommon.LoadDataForVNMap(out JObject geoData);

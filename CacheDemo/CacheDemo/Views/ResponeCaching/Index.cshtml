@@ -10,7 +10,7 @@
             function loadData() {
                 $.ajax({
                     method: 'GET',
-                    cache: false,
+                    cache: true,
                     url: '/ResponeCaching/GetData',
                     start_time: new Date().getTime(),
                     complete: function (data) {
