@@ -1,4 +1,8 @@
-﻿<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+﻿<environment include="Development">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</environment>
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 <script src="~/lib/jquery/dist/jquery.js"></script>
 @section Scripts
     {
@@ -10,7 +14,7 @@
             function loadData() {
                 $.ajax({
                     method: 'GET',
-                    cache: false,
+                    cache: true,
                     url: '/Home/GetData',
                     start_time: new Date().getTime(),
                     complete: function (data) {
